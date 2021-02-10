@@ -1,5 +1,14 @@
 version: "3.8"
+
 services:
+  db:
+    image: postgres:13.1-alpine
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+
   web:
     build:
       context: .
@@ -9,4 +18,5 @@ services:
       - .:/go/src/app:cached
     ports:
       - 3001:8080
-
+    depends_on:
+      - db
