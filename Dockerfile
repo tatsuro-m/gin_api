@@ -1,8 +1,19 @@
-FROM golang:1.15.7-alpine
+FROM golang:1.15.7-alpine as builder
 
-ENV ROOT=/go/src/app
-RUN apk update && apk add git
+ENV ROOT=/app
 WORKDIR ${ROOT}
 
-ADD . ${ROOT}
+RUN apk update && apk add git
+COPY go.mod go.sum ./
+RUN go mod download
 
+COPY . ${ROOT}
+RUN CGO_ENABLED=0 GOOS=linux go build -o $ROOT/binary
+
+FROM scratch as prod
+
+ENV ROOT=/app
+WORKDIR ${ROOT}
+COPY --from=builder ${ROOT}/binary ${ROOT}
+
+ENTRYPOINT ["/app/binary"]
