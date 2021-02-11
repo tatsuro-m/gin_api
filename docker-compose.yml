@@ -13,10 +13,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: dev
     tty: true
     stdin_open: true
-#    volumes:
-#      - .:/app:cached
+    volumes:
+      - .:/app:cached
     ports:
       - 3001:8080
     depends_on:
