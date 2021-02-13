@@ -3,7 +3,6 @@ package database
 import (
 	"fmt"
 	"os"
-	"strconv"
 	"time"
 
 	"github.com/jinzhu/gorm"
@@ -22,7 +21,6 @@ func Init() {
 		fmt.Println(" DB connection failed!!!!!!!")
 
 		for i := 0; i < 3; i++ {
-			fmt.Println("retry:" + strconv.Itoa(i+1))
 			time.Sleep(time.Second * 5)
 			_, err := connect()
 			if err == nil {
@@ -30,7 +28,7 @@ func Init() {
 			}
 		}
 
-		return
+		panic(err)
 	}
 	fmt.Println("DB connection success!!!!")
 }
