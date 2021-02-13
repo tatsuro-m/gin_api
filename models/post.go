@@ -19,7 +19,7 @@ func dbInit() (d *gorm.DB) {
 	return d
 }
 
-func insert(title string, content string) {
+func Insert(title string, content string) {
 	d := dbInit()
 	d.Create(&Post{
 		Title:   title,
@@ -46,7 +46,7 @@ func delete(id int) {
 	d.Close()
 }
 
-func getAll() []Post {
+func GetAll() []Post {
 	d := dbInit()
 	var posts []Post
 	d.Order("created_at desc").Find(&posts)
@@ -54,7 +54,7 @@ func getAll() []Post {
 	return posts
 }
 
-func getFirst(id int) Post {
+func GetFirst(id int) Post {
 	d := dbInit()
 	var post Post
 	d.First(&post, id)
