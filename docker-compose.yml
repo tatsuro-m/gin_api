@@ -5,9 +5,12 @@ services:
     image: postgres:13.1-alpine
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
+      POSTGRES_DB: golang_db
 
   web:
     build:
@@ -22,3 +25,8 @@ services:
       - 8080:8080
     depends_on:
       - db
+    environment:
+      DB_HOST: db
+      DB_USER: postgres
+      DB_PASSWORD: password
+      DB_NAME: golang_db
