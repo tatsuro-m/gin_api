@@ -1,6 +1,7 @@
 FROM golang:1.15.7-alpine as dev
 
 ENV ROOT=/go/src/app
+ENV TZ=Asia/Tokyo
 WORKDIR ${ROOT}
 
 RUN apk update && apk add git
@@ -14,6 +15,7 @@ CMD ["go", "run", "main.go"]
 FROM golang:1.15.7-alpine as builder
 
 ENV ROOT=/go/src/app
+ENV TZ=Asia/Tokyo
 WORKDIR ${ROOT}
 
 RUN apk update && apk add git

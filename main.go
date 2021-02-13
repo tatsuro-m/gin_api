@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"post_crud_golang/database"
+	_ "time/tzdata"
 
 	"github.com/gin-gonic/gin"
 )
